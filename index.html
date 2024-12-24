@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="scss/custom.css">
+    <title>Emily's Portfolio</title>
+</head>
+<body class="bg-dark">
+    <!-- Navbar -->
+    <div class="container-fluid m-3">
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark rounded-3">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">√Emily</a><!-- Replace with logo!! -->
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navmenu"> <!-- Collapsable part of the navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="showSection('about')">About Me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="showSection('projects')">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="showSection('resume')">Resume</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="showSection('contact')">Contact Me</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+        </nav>
+    </div>
+    
+    <!-- Showcase -->
+    <section class="bg-dark text-light p-5 text-center" id="about">
+        <div class="container">
+            <div class="d-sm-flex flex-row align-items-center">
+                <img class="rounded-circle img-fluid w-50" src="img/showcase.png" alt="">
+                <div class="mx-5">
+                    <h1 class="my-4">Welcome</h1>
+                    <h4>My name is <span class="text-warning">Emily Root</span>.</h4>
+                    <p class="my-4">I'm a <span class="text-warning">software engineer</span> who specializes in creating <span class="text-warning">experiences</span> through games. I'm currently a student at North Carolina State University, graduating in May 2024. Check out all the cool things I've made in <a class="text-secondary" onclick="showSection('projects')">projects</a>.</p>
+                    <button class="btn btn-secondary btn-lg w-100" onclick="showSection('contact')">
+                        Contact Me
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" style="display: none;">
+        <div class="container d-flex flex-column text-light" id="games_projects">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked onclick="toggleDivs('games', 'nongames')">
+                <label class="btn btn-outline-secondary" for="btnradio1">Games</label>
+              
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="toggleDivs('nongames', 'games')">
+                <label class="btn btn-outline-secondary" for="btnradio2">Projects</label>
+            </div>       
+            <div class="" id="games">
+                <ul>
+                    <!-- Gainz -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/gainz_logo_large.png" alt="gainz_logo" class="d-none d-md-flex img-fluid col-md-4">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>Gainz: The Financial Literacy Game</h3>
+                            <p>Gainz is an educational game about financial literacy. It was created in for a non-profit educational organization, Katabasis, in 2024. I worked with a team of 5 as the team lead and programmer.</p>
+                            <a href="https://bbutterscotch.itch.io/gainz" class="btn btn-secondary w-md-25" target="_blank">Check it out</a>
+                        </div>
+                    </div>
+                    <!-- Cat's Cradle -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/cats_cradle.png" alt="cats_cradle" class="d-none d-md-flex img-fluid col-md-4">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>Cat's Cradle</h3>
+                            <p>Cat's Cradle is a tile-based puzzle game where the player tries to rid its home of pesky dogs. It was created for GMTK Jam 2023 and made in 48 hours. I worked with a team of 6 as a programmer.</p>
+                            <a href="https://xinmi.itch.io/cats-cradle" class="btn btn-secondary w-md-25" target="_blank">Check it out</a>
+                        </div>
+                    </div>
+                    <!-- Resource Rush -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/resourcerush.png" alt="resourcerush" class="d-none d-md-flex img-fluid col-md-4 p-1 rounded-3">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>Resource Rush</h3>
+                            <p>Resource Rush is an educational farming game created in Unity in 2023. I converted the project from a javascript-based game to a Unity one and added features and art.</p>
+                            <button  class="btn btn-secondary w-md-25" onclick="showSection('contact')">Ask me about it!</button>
+                        </div>
+                    </div>
+                    <!-- Winter Break -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/winterbreak.png" alt="winterbreak" class="d-none d-md-flex img-fluid col-md-4">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>Winter Break</h3>
+                            <p>Winter Break is a puzzle adventure game where the player is trapped in a snowglobe and must find all the pieces to escape. It was created for a class in 2023. I worked with a team of 4 as a programmer.</p>
+                            <button class="btn btn-secondary w-md-25" onclick="showSection('contact')">Ask me about it!</button>
+                        </div>
+                    </div>
+                    <!-- Squidnapped -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/squidnapped.png" alt="squidnapped" class="d-none d-md-flex img-fluid col-md-4 p-1 rounded-3">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>Squidnapped</h3>
+                            <p>Squidnapped is a game created in PuzzleScript about a squid escaping an aquarium by blocking cameras. I created it on my own for a class in 2023.</p>
+                            <a href="https://bbutterscotch.itch.io/squidnapped" class="btn btn-secondary w-md-25" target="_blank">Check it out</a>
+                        </div>
+                    </div>
+                    <!-- Dice Warp -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/dicewarp.png" alt="dicewarp" class="d-none d-md-flex img-fluid col-md-4 p-1 rounded-3">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>Dice Warp</h3>
+                            <p>Dice warp is a tile-based puzzle game built in Unity where the goal is to get the dice to the end with the correct face. I created it on my own for GMTK Jam 2022. I used outside assets for the art.</p>
+                            <a href="https://bbutterscotch.itch.io/dice-warp" class="btn btn-secondary w-md-25" target="_blank">Check it out</a>
+                        </div>
+                    </div>
+
+                    <!-- God's Year Off -->
+                    <div class="container d-md-flex flex-md-row flex-column align-items-center bg-primary text-light my-4 rounded-3 justify-content-center">
+                        <img src="img/gods_year_off.png" alt="gods_year_off" class="d-none d-md-flex img-fluid col-md-4 p-1 rounded-3">
+                        <div class="container d-flex flex-column p-3 col-md-8 justify-content-center align-items-center align-items-md-start">
+                            <h3>God's Year Off</h3>
+                            <p>God's Year Off is a asteroids-style pixel art game. I created it for GMTK Jam 2021 and it was the first game I ever published. I created all of the art and programmed it on my own.</p>
+                            <a href="https://bbutterscotch.itch.io/gods-year-off" class="btn btn-secondary w-md-25" target="_blank">Check it out</a>
+                        </div>
+                    </div>
+
+                </ul>
+            </div>
+            <div class="collapse" id="nongames">
+                <h1 class="text-center p-5">Work In Progress - Please ask me :)</h1>
+            </div>
+        </div>
+        
+
+    </section>
+
+    <!-- Resume -->
+    <section id="resume" style="display: none;">
+        <div class="container w-100 h-100 embed-responsive">
+            <iframe src="img/resume_emilyroot.pdf" frameborder="0" type="application/pdf" class="w-100" style="height: 90vh"></iframe>
+        </div>
+        
+    </section>
+
+    <!-- Contact Me -->
+    <section id="contact" style="display: none;">
+        <div class="container">
+            <h1 class="text-light">Contact Me</h1>
+            <h3 class="text-light">This page is a work in progress! Please send me an email at <span class="text-warning">emily@emilyroot.com</span> :)</h3>
+            <form action="" onsubmit="sendEmail(event)">
+                <div class="container d-flex flex-column">
+                    <div class="d-flex flex-row align-items-center justify-content-center py-3">
+                        <div class="w-100 pe-3">
+                            <label for="nameInput" class="form-label text-light">Full Name</label>
+                            <textarea class="form-control" id="nameInput" rows="1"></textarea>
+                        </div>
+                        <div class="w-100 ps-3">
+                            <label for="emailInput" class="form-label text-light">Email Address</label>
+                            <input type="email" class="form-control" id="emailInput">
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="subjectInput" class="form-label text-light">Subject</label>
+                        <textarea class="form-control" id="subjectInput" rows="1"></textarea>
+                    </div>
+                    <div class="my-2">
+                        <label for="messageInput" class="form-label text-light">Message</label>
+                        <textarea class="form-control" id="messageInput" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-secondary my-3" type="submit">Send Message</button>
+                </div>
+                
+                
+                
+                
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p-5 text-light text-center position-relative">
+        <div class="container">
+            <div class="container d-flex flex-row align-items-center justify-content-center">
+                <h1 class="text-secondary">emilyroot.com</h1>
+                <a type="button" class="btn btn-link" href="https://www.linkedin.com/in/eeroot/" target="_blank">
+                    <i class="bi bi-linkedin h1 text-secondary"></i>
+                </a>
+            </div>
+            
+            <p class="lead">Copyright &copy; 2024 Emily Root</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDivs(showId, hideId) {
+            const showDiv = document.getElementById(showId);
+            const hideDiv = document.getElementById(hideId);
+
+            if (showDiv && hideDiv) {
+                showDiv.style.display = "block"; // Show the specified div
+                hideDiv.style.display = "none"; // Hide the specified div
+            } else {
+                console.error("Invalid IDs provided. Make sure the IDs exist in the DOM.");
+            }
+        }
+    </script>
+    <script>
+        function showSection(id) {
+            // Get all section elements on the page
+            const sections = document.querySelectorAll("section");
+
+            // Loop through all sections
+            sections.forEach(section => {
+                // Show the section with the matching ID, hide all others
+                if (section.id === id) {
+                    section.style.display = "block";
+                } else {
+                    section.style.display = "none";
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
