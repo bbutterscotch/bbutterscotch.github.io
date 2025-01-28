@@ -13,7 +13,7 @@
     <div class="container-fluid p-3">
         <nav class="navbar navbar-expand-sm bg-primary navbar-dark rounded-3">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand">√Emily</a><!-- Replace with logo!! -->
+                <a href="#about" class="navbar-brand">√Emily</a><!-- Replace with logo!! -->
     
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                     <span class="navbar-toggler-icon"></span>
@@ -22,16 +22,16 @@
                 <div class="collapse navbar-collapse" id="navmenu"> <!-- Collapsable part of the navbar -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="showSection('about')">About Me</a>
+                            <a href="#about" class="nav-link" onclick="showSection('about')">About Me</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="showSection('projects')">Projects</a>
+                            <a href="#projects" class="nav-link" onclick="showSection('projects')">Projects</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="showSection('resume')">Resume</a>
+                            <a href="#resume" class="nav-link" onclick="showSection('resume')">Resume</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="showSection('contact')">Contact Me</a>
+                            <a href="#contact" class="nav-link" onclick="showSection('contact')">Contact Me</a>
                         </li>
                     </ul>
                 </div>
@@ -48,8 +48,8 @@
                 <div class="mx-5">
                     <h1 class="my-4">Welcome</h1>
                     <h4>My name is <span class="text-warning">Emily Root</span>.</h4>
-                    <p class="my-4">I'm a <span class="text-warning">software engineer</span> who specializes in creating <span class="text-warning">experiences</span> through games. I'm currently a student at North Carolina State University, graduating in May 2024. Check out all the cool things I've made in <a class="text-secondary" onclick="showSection('projects')">projects</a>.</p>
-                    <button class="btn btn-secondary btn-lg w-100" onclick="showSection('contact')">
+                    <p class="my-4">I'm a <span class="text-warning">software engineer</span> who specializes in creating <span class="text-warning">experiences</span> through games. I'm currently a student at North Carolina State University, graduating in May 2025. Check out all the cool things I've made in <a class="text-secondary" onclick="showSection('projects')">projects</a>.</p>
+                    <button class="btn btn-secondary btn-lg w-100" href="#contact" onclick="showSection('contact')">
                         Contact Me
                     </button>
                 </div>
@@ -156,33 +156,26 @@
     <section id="contact" style="display: none;">
         <div class="container">
             <h1 class="text-light">Contact Me</h1>
-            <h3 class="text-light">This page is a work in progress! Please send me an email at <span class="text-warning">emily@emilyroot.com</span> :)</h3>
-            <form action="" onsubmit="sendEmail(event)">
+            <form action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="2a0c2469-78aa-449d-a10a-6bf9df663fa6">
                 <div class="container d-flex flex-column">
                     <div class="d-flex flex-row align-items-center justify-content-center py-3">
                         <div class="w-100 pe-3">
                             <label for="nameInput" class="form-label text-light">Full Name</label>
-                            <textarea class="form-control" id="nameInput" rows="1"></textarea>
+                            <textarea class="form-control" name="name" id="nameInput" rows="1"></textarea>
                         </div>
                         <div class="w-100 ps-3">
                             <label for="emailInput" class="form-label text-light">Email Address</label>
-                            <input type="email" class="form-control" id="emailInput">
+                            <input type="email" class="form-control" name="email" id="emailInput">
                         </div>
                     </div>
                     <div class="my-2">
-                        <label for="subjectInput" class="form-label text-light">Subject</label>
-                        <textarea class="form-control" id="subjectInput" rows="1"></textarea>
-                    </div>
-                    <div class="my-2">
                         <label for="messageInput" class="form-label text-light">Message</label>
-                        <textarea class="form-control" id="messageInput" rows="3"></textarea>
+                        <textarea class="form-control" name="message" id="messageInput" rows="3"></textarea>
                     </div>
-                    <button class="btn btn-secondary my-3" type="submit">Send Message</button>
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <button class="btn btn-secondary my-3" type="submit">Submit <i class="bi bi-arrow-right"></i></button>
                 </div>
-                
-                
-                
-                
             </form>
         </div>
     </section>
@@ -218,6 +211,7 @@
         function showSection(id) {
             // Get all section elements on the page
             const sections = document.querySelectorAll("section");
+            window.location.hash = '#' + id;
 
             // Loop through all sections
             sections.forEach(section => {
@@ -229,6 +223,31 @@
                 }
             });
         }
+    </script>
+    <script>
+        function showSectionFromHash() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.display = "none";
+            });
+            const hash = window.location.hash;
+            if (!hash) {
+                window.location.hash = "#about";
+            }
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    targetSection.style.display = "block";
+                    // Scroll to the section
+                }
+            }
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        window.addEventListener('load', showSectionFromHash);
+        window.addEventListener('hashchange', showSectionFromHash);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
