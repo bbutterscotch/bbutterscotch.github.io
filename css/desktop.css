@@ -1,0 +1,242 @@
+/* Emily Root · Desktop — Ocean drive palette. Dark is the default; [data-theme="light"] overrides. */
+:root {
+  --starOp: 1; --markInk: #0a0f24; --markOp: .8;
+  --sunTop: oklch(0.90 0.17 125); --sunBot: oklch(0.68 0.14 215); --sunGlow: oklch(0.75 0.14 200 / .35);
+  --wall: #0a0f24; --wallInk: #e8eefb; --iconHover: rgba(120,220,240,.12);
+  --haze: oklch(0.45 0.12 220 / .35); --grid: oklch(0.84 0.14 190 / .35);
+  --bar: rgba(14,20,48,.82); --barLine: #25305a; --card: #121a38; --line: #1f2a52; --winLine: #2a3666;
+  --winShadow: 0 20px 60px rgba(0,0,0,.5); --barActive: #1b2550; --side: #0f1631;
+  --ink: #e8eefb; --muted: #99a5c6;
+  --a1: oklch(0.84 0.14 190); --a1Ink: #041419; --a2: oklch(0.80 0.17 135);
+  --a1t: oklch(0.30 0.06 190); --a2t: oklch(0.29 0.06 135);
+  --phA: #141d3e; --phB: #1c2750; --field: #0d1430; --seg: #1b2550;
+  --sun: min(38vw, 440px, 46vh);
+  --glass: 72%;
+}
+:root[data-theme="light"] {
+  --starOp: 0; --markInk: #ffffff; --markOp: .95;
+  --sunTop: oklch(0.88 0.15 125); --sunBot: oklch(0.62 0.12 215); --sunGlow: oklch(0.80 0.10 200 / .35);
+  --wall: oklch(0.93 0.035 230); --wallInk: #121a38; --iconHover: rgba(20,40,120,.08);
+  --haze: oklch(0.98 0.03 200 / .85); --grid: oklch(0.52 0.11 205 / .30);
+  --bar: rgba(255,255,255,.8); --barLine: #d9e0ef; --card: #ffffff; --line: #e2e7f3; --winLine: #d5dcec;
+  --winShadow: 0 20px 50px rgba(20,30,80,.18), 0 2px 6px rgba(20,30,80,.08); --barActive: oklch(0.95 0.03 200); --side: #f3f6fc;
+  --ink: #121a38; --muted: #5a6488;
+  --a1: oklch(0.52 0.11 205); --a1Ink: #ffffff; --a2: oklch(0.50 0.14 145);
+  --a1t: oklch(0.93 0.045 195); --a2t: oklch(0.93 0.05 140);
+  --phA: oklch(0.96 0.02 195); --phB: oklch(0.92 0.035 195); --field: #ffffff; --seg: #e9eef8;
+}
+
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body { background: var(--wall); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--a1); }
+input, textarea, button { font: inherit; }
+[hidden] { display: none !important; }
+
+.desk {
+  position: fixed; inset: 0; overflow: hidden; background: var(--wall); color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif; user-select: none; transition: background .3s;
+}
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+/* √Emily mark: the radical's top line runs across the whole name */
+.rootmark { display: inline-flex; align-items: stretch; font-family: 'Oxanium', sans-serif; font-weight: 700; line-height: 1; color: var(--a1); }
+.rootmark svg { width: .6em; height: auto; flex: none; display: block; overflow: visible; }
+.rootmark span { display: block; line-height: 1; padding: .12em .05em 0 .06em; border-top: .09em solid currentColor; letter-spacing: -.01em; }
+
+/* Wallpaper */
+.haze { position: absolute; left: 0; right: 0; bottom: calc(48px + 40%); height: 34%; background: linear-gradient(to top, var(--haze), transparent); pointer-events: none; }
+.sky { position: absolute; left: 0; right: 0; top: 0; bottom: calc(48px + 40%); overflow: hidden; pointer-events: none; }
+.sun {
+  position: absolute; left: 50%; bottom: calc(var(--sun) * -0.32); width: var(--sun); aspect-ratio: 1; transform: translateX(-50%);
+  border-radius: 50%; background: linear-gradient(180deg, var(--sunTop), var(--sunBot)); box-shadow: 0 0 80px var(--sunGlow);
+  -webkit-mask: linear-gradient(180deg, #000 46%, transparent 46% 50%, #000 50% 56%, transparent 56% 61%, #000 61% 66%, transparent 66% 72%, #000 72%);
+          mask: linear-gradient(180deg, #000 46%, transparent 46% 50%, #000 50% 56%, transparent 56% 61%, #000 61% 66%, transparent 66% 72%, #000 72%);
+}
+.floor { position: absolute; left: 0; right: 0; bottom: 48px; height: 40%; overflow: hidden; border-top: 1.5px solid var(--a1); pointer-events: none; }
+.reflection {
+  position: absolute; left: 50%; top: 0; width: var(--sun); height: calc(var(--sun) * 0.68); transform: translateX(-50%); overflow: hidden;
+  -webkit-mask: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,0) 92%);
+          mask: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,0) 92%);
+}
+.reflection div {
+  position: absolute; left: 0; top: calc(var(--sun) * -0.32); width: 100%; aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(0deg, var(--sunTop), var(--sunBot)); filter: blur(1.5px);
+  -webkit-mask: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 10px);
+          mask: repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 10px);
+}
+.plane { position: absolute; left: -50%; right: -50%; top: 0; height: 100%; transform: perspective(240px) rotateX(55deg); transform-origin: top; }
+.plane .mark { position: absolute; left: 50%; top: calc(var(--sun) * 0.1); transform: translateX(-50%); opacity: var(--markOp); }
+.plane .mark .rootmark { font-size: calc(var(--sun) * 0.17); color: var(--markInk); }
+.plane.lines {
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 28px;
+}
+
+/* Desktop icons */
+.icons { position: absolute; top: 16px; left: 12px; bottom: 64px; display: grid; grid-auto-flow: column; grid-template-rows: repeat(auto-fill, 98px); grid-auto-columns: 92px; gap: 4px; }
+.icon {
+  border: 0; background: transparent; color: var(--wallInk); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 8px; padding: 10px 4px; border-radius: 8px;
+}
+.icon:hover { background: var(--iconHover); }
+.icon > span:last-child { font-size: 12.5px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,.35); }
+.ic-folder { position: relative; width: 50px; height: 40px; flex: none; }
+.ic-folder::before { content: ''; position: absolute; left: 0; top: 0; width: 22px; height: 9px; border-radius: 4px 4px 0 0; background: var(--a1); }
+.ic-folder::after { content: ''; position: absolute; left: 0; right: 0; top: 6px; bottom: 0; border-radius: 3px 6px 6px 6px; background: var(--a1); box-shadow: inset 0 10px 0 rgba(255,255,255,.18); }
+.ic-doc {
+  position: relative; width: 38px; height: 46px; flex: none; background: #f4f6fb; border-radius: 3px 12px 3px 3px;
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; box-sizing: border-box;
+}
+.ic-doc b { font: 600 9px 'IBM Plex Mono', monospace; padding: 1px 4px; border-radius: 2px; }
+.ic-mail { position: relative; width: 50px; height: 36px; flex: none; margin: 5px 0 3px; background: #f4f6fb; border-radius: 5px; overflow: hidden; }
+.ic-mail::after { content: ''; position: absolute; left: 5px; top: -19px; width: 40px; height: 40px; transform: rotate(45deg); border: 2px solid var(--a1); box-sizing: border-box; }
+.ic-app { width: 44px; height: 44px; flex: none; border-radius: 11px; color: #fff; display: flex; align-items: center; justify-content: center; font: 700 13px 'IBM Plex Mono', monospace; }
+
+/* Windows */
+.win {
+  position: absolute; display: flex; flex-direction: column; overflow: hidden; box-sizing: border-box;
+  background: color-mix(in oklch, var(--card) var(--glass), transparent);
+  backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  transition: background .25s; border: 1px solid var(--winLine); border-radius: 10px; box-shadow: var(--winShadow);
+}
+.win-bar {
+  flex: none; height: 38px; display: flex; align-items: center; gap: 10px; padding: 0 6px 0 14px;
+  background: var(--card); border-bottom: 1px solid var(--line); cursor: grab; touch-action: none;
+}
+.win.active .win-bar { background: var(--barActive); }
+.win-title { flex: 1; font-size: 13px; font-weight: 600; color: var(--muted); }
+.win.active .win-title { color: var(--ink); }
+.win-btn { width: 28px; height: 26px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; font-size: 15px; }
+.win-btn:hover { background: var(--seg); }
+.win-btn.close { font-size: 17px; }
+.win-btn.close:hover { background: oklch(0.62 0.2 25); color: #fff; }
+.glyph-folder { width: 14px; height: 11px; border-radius: 2px; background: var(--a1); flex: none; }
+.glyph-doc { width: 11px; height: 14px; border-radius: 2px 5px 2px 2px; background: #f4f6fb; border: 1.5px solid var(--a1); box-sizing: border-box; flex: none; }
+.glyph-mail { width: 15px; height: 11px; border-radius: 2px; background: #f4f6fb; border: 1.5px solid var(--a1); box-sizing: border-box; flex: none; }
+
+/* Projects window */
+.p-body { flex: 1; min-height: 0; display: flex; }
+.p-side {
+  flex: none; width: 168px; background: color-mix(in oklch, var(--side) var(--glass), transparent); border-right: 1px solid var(--line);
+  padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; box-sizing: border-box;
+}
+.p-side-label { font: 500 11px 'IBM Plex Mono', monospace; color: var(--muted); padding: 4px 10px 8px; letter-spacing: .06em; }
+.folder {
+  border: 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; border-radius: 6px;
+  font-size: 13.5px; text-align: left; gap: 8px; white-space: nowrap; background: transparent; color: var(--ink); font-weight: 400;
+}
+.folder.on { color: var(--a1); font-weight: 600; }
+.folder.on.hl { background: var(--a1t); }
+.folder .mono { font-size: 11.5px; opacity: .75; }
+.p-main { flex: 1; min-width: 0; overflow: auto; padding: 14px 18px 20px; display: flex; flex-direction: column; gap: 14px; user-select: text; background: var(--card); }
+.crumbs { display: flex; align-items: center; gap: 10px; font: 12px 'IBM Plex Mono', monospace; color: var(--muted); }
+.back { border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; border-radius: 6px; padding: 3px 9px; font-size: 12px; white-space: nowrap; flex: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px 14px; }
+.tile { border: 0; background: transparent; color: var(--ink); cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 7px; padding: 6px; border-radius: 9px; }
+.tile:hover { background: var(--seg); }
+.thumb { display: block; aspect-ratio: 16 / 10; border-radius: 7px; overflow: hidden; }
+.thumb > span { display: block; width: 100%; height: 100%; background-position: center top; background-repeat: no-repeat; }
+.ph { background: repeating-linear-gradient(135deg, var(--phA) 0 7px, var(--phB) 7px 8px); }
+.tile-title { font-size: 13.5px; font-weight: 600; line-height: 1.25; }
+.tile-meta { font: 11.5px 'IBM Plex Mono', monospace; color: var(--muted); }
+.detail { display: flex; flex-direction: column; gap: 14px; max-width: 620px; }
+.hero { aspect-ratio: 16 / 9; max-height: 260px; border-radius: 9px; overflow: hidden; }
+.hero > div { width: 100%; height: 100%; background-position: center; background-repeat: no-repeat; }
+.hero.ph { background: repeating-linear-gradient(135deg, var(--phA) 0 8px, var(--phB) 8px 9px); display: flex; align-items: center; justify-content: center; font: 11.5px 'IBM Plex Mono', monospace; color: var(--a1); }
+.detail h2 { margin: 0; font-family: 'Chakra Petch', sans-serif; font-size: 24px; font-weight: 700; line-height: 1.15; }
+.detail-meta { font-size: 13.5px; color: var(--muted); }
+.detail-meta b { font-weight: 500; }
+.detail p { margin: 0; font-size: 14.5px; line-height: 1.6; text-wrap: pretty; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font: 11.5px 'IBM Plex Mono', monospace; padding: 3px 8px; border-radius: 5px; white-space: nowrap; }
+.btn-primary { align-self: flex-start; background: var(--a1); color: var(--a1Ink); padding: 9px 15px; border-radius: 7px; font-weight: 600; font-size: 14px; border: 0; cursor: pointer; }
+.btn-primary:hover { color: var(--a1Ink); }
+.btn-ghost { align-self: flex-start; border: 1px solid var(--line); background: transparent; cursor: pointer; padding: 9px 15px; border-radius: 7px; font-weight: 600; font-size: 14px; color: var(--a1); }
+
+/* About window */
+.about { flex: 1; min-height: 0; overflow: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; user-select: text; background: var(--card); }
+.about-head { display: flex; gap: 16px; align-items: center; }
+.portrait { width: 76px; height: 76px; flex: none; border-radius: 12px; display: flex; align-items: center; justify-content: center; font: 10px 'IBM Plex Mono', monospace; color: var(--a1); }
+.about-name { font-family: 'Chakra Petch', sans-serif; font-size: 24px; font-weight: 700; }
+.status { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; }
+.status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--a2); }
+.about .lead { margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty; }
+.about .sub { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+
+/* Resume window */
+.r-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--line); background: var(--card); }
+.r-bar .btn-primary { align-self: center; padding: 6px 12px; border-radius: 6px; font-size: 13px; }
+.r-view { flex: 1; min-height: 0; overflow: auto; background: color-mix(in oklch, var(--side) var(--glass), transparent); padding: 20px; display: flex; justify-content: center; }
+.paper {
+  width: 100%; max-width: 400px; aspect-ratio: 8.5 / 11; background: #fff; color: #121a38; border-radius: 3px; box-shadow: 0 4px 18px rgba(0,0,0,.18);
+  padding: 30px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; flex: none; align-self: flex-start;
+}
+.paper-head { display: flex; flex-direction: column; gap: 3px; border-bottom: 1.5px solid #121a38; padding-bottom: 10px; }
+.paper-head b { font-family: 'Chakra Petch', sans-serif; font-size: 22px; font-weight: 700; }
+.paper-head span { font-size: 11.5px; color: #5a6488; }
+.paper section { display: flex; flex-direction: column; gap: 6px; }
+.paper h4 { margin: 0; font: 600 10px 'IBM Plex Mono', monospace; letter-spacing: .08em; color: oklch(0.52 0.11 205); }
+.paper .row { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 600; }
+.paper .row span:last-child { font-weight: 400; color: #5a6488; }
+.paper .ln { height: 5px; border-radius: 3px; background: #e4e8f2; }
+.paper footer { margin-top: auto; font: 10px 'IBM Plex Mono', monospace; color: #8a93b0; text-align: center; }
+
+/* Contact window */
+.mail { flex: 1; min-height: 0; display: flex; flex-direction: column; user-select: text; background: var(--card); margin: 0; }
+.mail-row { display: flex; align-items: center; gap: 12px; padding: 6px 16px; border-bottom: 1px solid var(--line); }
+.mail-row.to { padding: 10px 16px; font-size: 14px; }
+.mail-row > span:first-child { width: 52px; color: var(--muted); font-size: 13px; }
+.chip { background: var(--a1t); color: var(--a1); padding: 2px 10px; border-radius: 99px; font-size: 13px; font-weight: 500; }
+.mail-row input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 14px; padding: 6px 0; outline: none; }
+.mail textarea { flex: 1; min-height: 100px; border: 0; background: var(--field); color: var(--ink); font-size: 14.5px; line-height: 1.55; padding: 14px 16px; resize: none; outline: none; }
+.mail-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line); }
+.mail-foot .btn-primary { align-self: center; padding: 8px 16px; font-size: 13.5px; }
+.links { display: flex; gap: 14px; font: 12px 'IBM Plex Mono', monospace; color: var(--muted); }
+
+/* Start menu */
+.start {
+  position: absolute; left: 8px; bottom: 56px; width: 280px; z-index: 9001; background: var(--card); border: 1px solid var(--winLine);
+  border-radius: 12px; box-shadow: var(--winShadow); overflow: hidden; display: flex; flex-direction: column;
+}
+.start-head { background: var(--side); padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--line); }
+.start-head .rootmark { font-size: 22px; align-self: flex-start; margin-bottom: 4px; }
+.start-head > span:last-child { font-size: 13px; color: var(--muted); }
+.start-items { display: flex; flex-direction: column; padding: 6px; }
+.start-items button { border: 0; background: transparent; color: var(--ink); cursor: pointer; text-align: left; padding: 9px 12px; border-radius: 7px; font-size: 14px; }
+.start-items button:hover, .start-leave:hover { background: var(--seg); }
+.start .links { gap: 16px; padding: 10px 18px; border-top: 1px solid var(--line); }
+.start-leave { border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; text-align: left; padding: 11px 18px; font-size: 13.5px; font-weight: 500; }
+
+/* Taskbar */
+.taskbar {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 48px; z-index: 9000; background: var(--bar);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--barLine);
+  display: flex; align-items: center; gap: 6px; padding: 0 8px; box-sizing: border-box;
+}
+.start-btn { height: 36px; padding: 0 12px; border: 0; border-radius: 7px; cursor: pointer; display: flex; align-items: center; gap: 8px; background: transparent; color: var(--ink); }
+.start-btn .rootmark { font-size: 16px; }
+.start-btn:hover, .start-btn.on { background: var(--seg); }
+.sep { width: 1px; height: 24px; background: var(--barLine); margin: 0 4px; }
+.tabs { display: flex; gap: 4px; min-width: 0; overflow: hidden; }
+.tab {
+  height: 34px; padding: 0 12px; border: 0; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  font-size: 13px; white-space: nowrap; background: transparent; color: var(--ink); box-shadow: inset 0 -2px 0 var(--barLine);
+}
+.tab:hover { background: var(--seg); }
+.tab.active { background: var(--seg); box-shadow: inset 0 -2px 0 var(--a1); }
+.tab.min { box-shadow: inset 0 -2px 0 transparent; }
+.spacer { flex: 1; }
+.taskbar .status { color: var(--muted); white-space: nowrap; padding: 0 6px; }
+.mode { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: 99px; background: var(--seg); }
+.mode button { width: 26px; height: 26px; border: 0; border-radius: 50%; cursor: pointer; font-size: 12px; background: transparent; color: var(--muted); }
+.mode button[aria-pressed="true"] { background: var(--a1); color: var(--a1Ink); }
+.clock { font: 12.5px 'IBM Plex Mono', monospace; color: var(--ink); padding: 0 8px; white-space: nowrap; }
+.leave { height: 34px; padding: 0 12px; border: 1px solid var(--barLine); border-radius: 7px; cursor: pointer; background: transparent; color: var(--ink); font-size: 12.5px; white-space: nowrap; }
+.leave:hover { background: var(--seg); }
+
+/* Star field (dark mode only) */
+.stars { position: absolute; inset: 0; pointer-events: none; opacity: var(--starOp); transition: opacity .4s; }
+.stars i { position: absolute; left: 0; top: 0; border-radius: 50%; }
+.stars i:first-child { width: 1px; height: 1px; box-shadow: 0.0vw 47.9vh rgba(255,255,255,0.52),21.1vw 37.9vh rgba(255,255,255,0.67),32.9vw 39.1vh rgba(255,255,255,0.80),54.3vw 35.6vh rgba(255,255,255,0.73),81.7vw 12.6vh rgba(255,255,255,0.57),70.8vw 36.3vh rgba(255,255,255,0.38),68.4vw 24.3vh rgba(255,255,255,0.90),80.7vw 6.4vh rgba(255,255,255,0.66),92.3vw 35.8vh rgba(255,255,255,0.74),57.7vw 47.4vh rgba(255,255,255,0.90),37.2vw 17.4vh rgba(255,255,255,0.85),33.2vw 7.9vh rgba(255,255,255,0.53),42.8vw 15.3vh rgba(255,255,255,0.91),55.7vw 37.9vh rgba(255,255,255,0.88),5.9vw 14.2vh rgba(255,255,255,0.69),50.9vw 21.9vh rgba(255,255,255,0.47),90.9vw 2.9vh rgba(255,255,255,0.57),34.4vw 34.5vh rgba(255,255,255,0.90),51.5vw 8.6vh rgba(255,255,255,0.59),28.4vw 19.0vh rgba(255,255,255,0.60),33.3vw 27.6vh rgba(255,255,255,0.72),23.3vw 47.1vh rgba(255,255,255,0.62),86.3vw 33.0vh rgba(255,255,255,0.73),51.6vw 26.3vh rgba(255,255,255,0.76),94.0vw 20.6vh rgba(255,255,255,0.77),25.1vw 30.5vh rgba(255,255,255,0.56),33.1vw 20.4vh rgba(255,255,255,0.83),87.8vw 5.8vh rgba(255,255,255,0.84),7.8vw 21.2vh rgba(255,255,255,0.44),7.8vw 51.8vh rgba(255,255,255,0.48),63.2vw 7.5vh rgba(255,255,255,0.62),59.3vw 7.2vh rgba(255,255,255,0.90),88.5vw 46.3vh rgba(255,255,255,0.88),90.8vw 39.6vh rgba(255,255,255,0.52),1.0vw 12.9vh rgba(255,255,255,0.40),0.2vw 32.1vh rgba(255,255,255,0.49),74.1vw 25.4vh rgba(255,255,255,0.76),23.8vw 45.9vh rgba(255,255,255,0.49),37.4vw 46.5vh rgba(255,255,255,0.42),48.9vw 0.2vh rgba(255,255,255,0.90),63.7vw 48.0vh rgba(255,255,255,0.36),90.0vw 9.8vh rgba(255,255,255,0.93),56.5vw 35.3vh rgba(255,255,255,0.51),22.3vw 10.9vh rgba(255,255,255,0.69),5.2vw 40.0vh rgba(255,255,255,0.77),71.4vw 25.9vh rgba(255,255,255,0.37),11.0vw 47.8vh rgba(255,255,255,0.43),68.8vw 46.4vh rgba(255,255,255,0.37),88.3vw 44.8vh rgba(255,255,255,0.95),95.4vw 39.8vh rgba(255,255,255,0.60),24.8vw 37.8vh rgba(255,255,255,0.88),39.8vw 12.2vh rgba(255,255,255,0.59),88.7vw 29.1vh rgba(255,255,255,0.56),62.2vw 38.2vh rgba(255,255,255,0.55),72.5vw 22.0vh rgba(255,255,255,0.47),31.2vw 51.2vh rgba(255,255,255,0.95),63.2vw 45.4vh rgba(255,255,255,0.90),20.0vw 33.6vh rgba(255,255,255,0.43),49.7vw 29.0vh rgba(255,255,255,0.81),94.6vw 25.1vh rgba(255,255,255,0.46),44.7vw 8.6vh rgba(255,255,255,0.75),52.2vw 29.2vh rgba(255,255,255,0.65),75.7vw 18.8vh rgba(255,255,255,0.80),2.6vw 15.5vh rgba(255,255,255,0.68),20.3vw 37.6vh rgba(255,255,255,0.52),23.6vw 34.3vh rgba(255,255,255,0.61),7.5vw 40.2vh rgba(255,255,255,0.84),91.5vw 47.3vh rgba(255,255,255,0.76),95.9vw 1.3vh rgba(255,255,255,0.81),60.1vw 37.6vh rgba(255,255,255,0.89),3.7vw 7.1vh rgba(255,255,255,0.40),10.8vw 4.4vh rgba(255,255,255,0.36),60.5vw 49.2vh rgba(255,255,255,0.47),13.4vw 10.5vh rgba(255,255,255,0.75),24.3vw 23.7vh rgba(255,255,255,0.95),42.3vw 35.0vh rgba(255,255,255,0.81),39.7vw 21.7vh rgba(255,255,255,0.39),23.0vw 42.0vh rgba(255,255,255,0.93),15.2vw 48.1vh rgba(255,255,255,0.66),12.2vw 10.9vh rgba(255,255,255,0.71),17.1vw 4.1vh rgba(255,255,255,0.51),64.7vw 28.9vh rgba(255,255,255,0.64),99.4vw 3.9vh rgba(255,255,255,0.60),31.4vw 0.2vh rgba(255,255,255,0.35),41.3vw 4.7vh rgba(255,255,255,0.49),92.4vw 40.4vh rgba(255,255,255,0.81),43.7vw 44.5vh rgba(255,255,255,0.93),80.1vw 34.4vh rgba(255,255,255,0.69),34.8vw 21.2vh rgba(255,255,255,0.65),49.5vw 29.5vh rgba(255,255,255,0.78),66.5vw 32.9vh rgba(255,255,255,0.79),88.5vw 43.9vh rgba(255,255,255,0.94),43.8vw 25.3vh rgba(255,255,255,0.92),97.5vw 18.6vh rgba(255,255,255,0.40),34.3vw 45.9vh rgba(255,255,255,0.78),73.8vw 49.7vh rgba(255,255,255,0.82),20.7vw 12.4vh rgba(255,255,255,0.83),10.4vw 47.6vh rgba(255,255,255,0.83),63.5vw 37.0vh rgba(255,255,255,0.67),44.3vw 45.3vh rgba(255,255,255,0.69),87.4vw 14.1vh rgba(255,255,255,0.76),43.4vw 20.5vh rgba(255,255,255,0.46),58.9vw 12.0vh rgba(255,255,255,0.89),82.2vw 17.6vh rgba(255,255,255,0.76),87.7vw 6.0vh rgba(255,255,255,0.53),92.1vw 0.1vh rgba(255,255,255,0.43),39.7vw 1.1vh rgba(255,255,255,0.77),89.8vw 9.0vh rgba(255,255,255,0.48),94.7vw 36.4vh rgba(255,255,255,0.46),11.7vw 32.6vh rgba(255,255,255,0.36); }
+.stars i:last-child { width: 2px; height: 2px; box-shadow: 81.2vw 28.4vh rgba(255,255,255,0.80),12.8vw 15.9vh rgba(255,255,255,0.78),95.5vw 26.3vh rgba(255,255,255,0.70),77.7vw 33.7vh rgba(255,255,255,0.79),59.8vw 4.8vh rgba(255,255,255,0.38),61.3vw 10.8vh rgba(255,255,255,0.70),25.1vw 10.7vh rgba(255,255,255,0.72),62.9vw 39.0vh rgba(255,255,255,0.49),90.6vw 2.5vh rgba(255,255,255,0.76),40.7vw 38.0vh rgba(255,255,255,0.75),80.5vw 5.0vh rgba(255,255,255,0.90),50.1vw 39.5vh rgba(255,255,255,0.60),86.6vw 37.9vh rgba(255,255,255,0.79),90.8vw 41.2vh rgba(255,255,255,0.46),72.0vw 7.4vh rgba(255,255,255,0.43),94.9vw 45.8vh rgba(255,255,255,0.38),7.7vw 12.6vh rgba(255,255,255,0.91),87.0vw 45.9vh rgba(255,255,255,0.52),19.8vw 1.4vh rgba(255,255,255,0.63),55.9vw 6.8vh rgba(255,255,255,0.54),48.1vw 10.9vh rgba(255,255,255,0.38),4.4vw 4.5vh rgba(255,255,255,0.73),46.8vw 38.8vh rgba(255,255,255,0.79),51.1vw 33.6vh rgba(255,255,255,0.58),61.3vw 46.3vh rgba(255,255,255,0.81),96.2vw 34.2vh rgba(255,255,255,0.71),80.3vw 8.2vh rgba(255,255,255,0.39),72.7vw 31.0vh rgba(255,255,255,0.61),54.5vw 18.6vh rgba(255,255,255,0.65),12.2vw 3.2vh rgba(255,255,255,0.40),35.4vw 16.5vh rgba(255,255,255,0.47),64.0vw 6.0vh rgba(255,255,255,0.38),0.2vw 40.1vh rgba(255,255,255,0.87),4.4vw 36.9vh rgba(255,255,255,0.54); }
