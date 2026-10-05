@@ -58,7 +58,7 @@
   // Leaving: back to the 3D desk (parent frame when embedded, the desk page otherwise)
   const exit = () => {
     s.start = false; render();
-    if (embedded) { try { parent.postMessage({ type: 'er-exit' }, '*'); } catch (e) {} } else location.href = 'desk.html';
+    if (embedded) { try { parent.postMessage({ type: 'er-exit' }, '*'); } catch (e) {} } else location.href = './';
   };
   $$('[data-exit]').forEach((b) => b.addEventListener('click', exit));
   addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if (s.start) { s.start = false; render(); } else exit(); });

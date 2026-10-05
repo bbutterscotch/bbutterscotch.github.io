@@ -52,7 +52,7 @@
   const setTheme = (t) => { if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; };
   setTheme(q.get('theme'));
   addEventListener('message', (e) => { if (e.data && e.data.type === 'er-theme') setTheme(e.data.theme); });
-  const exit = () => { if (parent !== window) parent.postMessage({ type: 'er-exit' }, '*'); else location.href = 'desk.html'; };
+  const exit = () => { if (parent !== window) parent.postMessage({ type: 'er-exit' }, '*'); else location.href = './'; };
   document.getElementById('back').addEventListener('click', exit);
   addEventListener('keydown', (e) => { if (e.key === 'Escape') exit(); });
 </script>
