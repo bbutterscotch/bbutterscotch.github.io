@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emily Root · Desktop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Oxanium:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/desktop.css">
+</head>
+<body>
+<template id="rootmark"><span class="rootmark"><svg viewBox="0 0 60 121" preserveAspectRatio="none" aria-hidden="true"><path d="M2 56 L17 46 L32 86 L57 4.5 L61 4.5" fill="none" stroke="currentColor" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/></svg><span>Emily</span></span></template>
+
+<div class="desk" id="desk">
+  <!-- Wallpaper: stars, striped sun, grid floor with the sun's reflection and the √Emily mark -->
+  <div class="stars" aria-hidden="true"><i></i><i></i></div>
+  <div class="haze"></div>
+  <div class="sky"><div class="sun"></div></div>
+  <div class="floor" aria-hidden="true">
+    <div class="reflection"><div></div></div>
+    <div class="plane"><div class="mark" data-rootmark></div></div>
+    <div class="plane lines"></div>
+  </div>
+
+  <nav class="icons">
+    <button class="icon" data-open="projects"><span class="ic-folder"></span><span>Projects</span></button>
+    <button class="icon" data-open="about"><span class="ic-doc"><b style="color:#041419;background:var(--a1)">TXT</b></span><span>About.txt</span></button>
+    <button class="icon" data-open="resume"><span class="ic-doc"><b style="color:#0b1a06;background:oklch(0.80 0.17 135)">PDF</b></span><span>Resume.pdf</span></button>
+    <button class="icon" data-open="contact"><span class="ic-mail"></span><span>Contact</span></button>
+    <a class="icon" href="https://bbutterscotch.itch.io" target="_blank" rel="noopener"><span class="ic-app" style="background:#fa5c5c">itch</span><span>itch.io</span></a>
+    <a class="icon" href="https://github.com/bbutterscotch" target="_blank" rel="noopener"><span class="ic-app" style="background:#24292f">gh</span><span>GitHub</span></a>
+    <a class="icon" href="https://www.linkedin.com/in/eeroot/" target="_blank" rel="noopener"><span class="ic-app" style="background:#0a66c2;font:700 15px 'IBM Plex Sans',sans-serif">in</span><span>LinkedIn</span></a>
+  </nav>
+
+  <section class="win" data-win="projects" hidden>
+    <header class="win-bar"><span class="glyph-folder"></span><span class="win-title">Projects</span><button class="win-btn" data-act="min" aria-label="Minimize">–</button><button class="win-btn close" data-act="close" aria-label="Close">×</button></header>
+    <div class="p-body">
+      <nav class="p-side"><span class="p-side-label">FOLDERS</span><div id="folders" style="display:contents"></div></nav>
+      <div class="p-main" id="pMain"></div>
+    </div>
+  </section>
+
+  <section class="win" data-win="about" hidden>
+    <header class="win-bar"><span class="glyph-doc"></span><span class="win-title">About.txt</span><button class="win-btn" data-act="min" aria-label="Minimize">–</button><button class="win-btn close" data-act="close" aria-label="Close">×</button></header>
+    <div class="about">
+      <div class="about-head">
+        <div class="portrait ph">portrait</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span class="about-name">Emily Root</span>
+          <span style="font-size:13.5px;color:var(--muted)">Software engineer at BrightVine Solutions</span>
+          <span class="status">Open to offers</span>
+        </div>
+      </div>
+      <p class="lead">I'm a software engineer who specializes in creating experiences through games. Today I build software at BrightVine Solutions.</p>
+      <p class="sub">I studied at North Carolina State University and graduated in May 2025. Outside work I make games, mostly for GMTK Game Jam, usually as the programmer on a small team.</p>
+    </div>
+  </section>
+
+  <section class="win" data-win="resume" hidden>
+    <header class="win-bar"><span class="glyph-doc" style="border-color:var(--a2)"></span><span class="win-title">Resume.pdf</span><button class="win-btn" data-act="min" aria-label="Minimize">–</button><button class="win-btn close" data-act="close" aria-label="Close">×</button></header>
+    <div class="r-bar"><span class="mono" style="font-size:12px;color:var(--muted)">resume_emilyroot.pdf · 1 page</span><a class="btn-primary" href="img/resume_emilyroot.pdf" target="_blank">Download ↓</a></div>
+    <div class="r-view">
+      <div class="paper">
+        <div class="paper-head"><b>Emily Root</b><span>Software Engineer</span></div>
+        <section><h4>EXPERIENCE</h4><div class="row"><span>BrightVine Solutions</span><span>2025–</span></div><div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:84%"></div></section>
+        <section><h4>PROJECTS</h4><div class="ln" style="width:88%"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:80%"></div></section>
+        <section><h4>EDUCATION</h4><div class="row"><span>North Carolina State University</span><span>2025</span></div></section>
+        <section><h4>SKILLS</h4><div class="ln" style="width:66%"></div></section>
+        <footer>preview: download for the full resume</footer>
+      </div>
+    </div>
+  </section>
+
+  <section class="win" data-win="contact" hidden>
+    <header class="win-bar"><span class="glyph-mail"></span><span class="win-title">New message</span><button class="win-btn" data-act="min" aria-label="Minimize">–</button><button class="win-btn close" data-act="close" aria-label="Close">×</button></header>
+    <form class="mail" action="https://api.web3forms.com/submit" method="POST" target="_blank">
+      <input type="hidden" name="access_key" value="2a0c2469-78aa-449d-a10a-6bf9df663fa6">
+      <input type="checkbox" name="botcheck" style="display:none">
+      <div class="mail-row to"><span>To</span><span class="chip">Emily Root</span></div>
+      <label class="mail-row"><span>From</span><input name="name" required placeholder="Your name"></label>
+      <label class="mail-row"><span>Email</span><input name="email" type="email" required placeholder="you@example.com"></label>
+      <label class="mail-row"><span>Subject</span><input name="subject" placeholder="Hello!"></label>
+      <textarea name="message" required placeholder="Write your message…"></textarea>
+      <div class="mail-foot">
+        <div class="links"><a href="https://www.linkedin.com/in/eeroot/" target="_blank" rel="noopener">LinkedIn</a><a href="https://bbutterscotch.itch.io" target="_blank" rel="noopener">itch.io</a><a href="https://github.com/bbutterscotch" target="_blank" rel="noopener">GitHub</a></div>
+        <button type="submit" class="btn-primary">Send →</button>
+      </div>
+    </form>
+  </section>
+
+  <div class="start" id="start" hidden>
+    <div class="start-head"><span data-rootmark></span><span>Emily Root · Software engineer at BrightVine</span></div>
+    <div class="start-items">
+      <button data-open="projects">Projects</button>
+      <button data-open="about">About</button>
+      <button data-open="resume">Resume</button>
+      <button data-open="contact">Contact</button>
+    </div>
+    <div class="links"><a href="https://www.linkedin.com/in/eeroot/" target="_blank" rel="noopener">LinkedIn</a><a href="https://bbutterscotch.itch.io" target="_blank" rel="noopener">itch.io</a><a href="https://github.com/bbutterscotch" target="_blank" rel="noopener">GitHub</a></div>
+    <button class="start-leave" data-exit>⏏ Leave the desk</button>
+  </div>
+
+  <footer class="taskbar">
+    <button class="start-btn" id="startBtn" aria-label="Start menu"><span data-rootmark></span></button>
+    <span class="sep"></span>
+    <div class="tabs" id="tabs"></div>
+    <span class="spacer"></span>
+    <span class="status">Open to offers</span>
+    <div class="mode" role="group" aria-label="Color mode">
+      <button data-theme="light" aria-label="Light mode">☀</button>
+      <button data-theme="dark" aria-label="Dark mode">☾</button>
+    </div>
+    <span class="clock" id="clock"></span>
+    <button class="leave" data-exit title="Leave the desk (Esc)">⏏ Leave</button>
+  </footer>
+</div>
+<script src="js/desktop.js"></script>
+</body>
+</html>
