@@ -23,6 +23,8 @@
     <div class="plane lines"></div>
   </div>
 
+  <!-- UI layer: counter-scaled against browser zoom by desktop.js so only text grows -->
+  <div class="ui" id="ui">
   <nav class="icons">
     <button class="icon" data-open="projects"><span class="ic-folder"></span><span>Projects</span></button>
     <button class="icon" data-open="about"><span class="ic-doc"><b style="color:#041419;background:var(--a1)">TXT</b></span><span>About.txt</span></button>
@@ -48,7 +50,7 @@
         <div class="portrait ph">portrait</div>
         <div style="display:flex;flex-direction:column;gap:4px">
           <span class="about-name">Emily Root</span>
-          <span style="font-size:13.5px;color:var(--muted)">Software engineer at BrightVine Solutions</span>
+          <span style="font-size:calc(13.5px * var(--z));color:var(--muted)">Software engineer at BrightVine Solutions</span>
           <span class="status">Open to offers</span>
         </div>
       </div>
@@ -59,7 +61,7 @@
 
   <section class="win" data-win="resume" hidden>
     <header class="win-bar"><span class="glyph-doc" style="border-color:var(--a2)"></span><span class="win-title">Resume.pdf</span><button class="win-btn" data-act="min" aria-label="Minimize">–</button><button class="win-btn close" data-act="close" aria-label="Close">×</button></header>
-    <div class="r-bar"><span class="mono" style="font-size:12px;color:var(--muted)">resume_emilyroot.pdf · 1 page</span><a class="btn-primary" href="img/resume_emilyroot.pdf" target="_blank">Download ↓</a></div>
+    <div class="r-bar"><span class="mono" style="font-size:calc(12px * var(--z));color:var(--muted)">resume_emilyroot.pdf · 1 page</span><a class="btn-primary" href="img/resume_emilyroot.pdf" target="_blank">Download ↓</a></div>
     <div class="r-view">
       <div class="paper">
         <div class="paper-head"><b>Emily Root</b><span>Software Engineer</span></div>
@@ -114,6 +116,7 @@
     <span class="clock" id="clock"></span>
     <button class="leave" data-exit title="Leave the desk (Esc)">⏏ Leave</button>
   </footer>
+  </div>
 </div>
 <script src="js/projects.js"></script>
 <script src="js/desktop.js"></script>

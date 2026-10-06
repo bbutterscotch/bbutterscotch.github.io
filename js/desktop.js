@@ -5,15 +5,32 @@
   const match = (p, f) => f === 'all' || (f === 'software' ? p.kind === 'Software' : f === 'games' ? p.kind === 'Game' && !p.jam : !!p.jam);
   const DEFS = { projects: { title: 'Projects', w: 800, h: 540 }, about: { title: 'About.txt', w: 470, h: 430 }, resume: { title: 'Resume.pdf', w: 500, h: 620 }, contact: { title: 'New message', w: 500, h: 500 } };
   const ORDER = ['projects', 'about', 'resume', 'contact'];
-  const TASKBAR = 48;
-
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
+  // Browser zoom: pages can't read the zoom level, but it shows up as a change in devicePixelRatio
+  // from the first visit's. The UI layer is counter-scaled by 1/zoom so windows, icons and the taskbar keep
+  // their size on screen, and text sizes are multiplied by --z, so only the text gets bigger.
+  // Positions below are in these unzoomed layout units, so the viewport and pointer are scaled by zoom.
+  let baseDpr = devicePixelRatio;
+  try {
+    const saved = parseFloat(localStorage.getItem('er-base-dpr'));
+    if (saved > 0) baseDpr = saved; else localStorage.setItem('er-base-dpr', String(baseDpr));
+  } catch (e) {}
+  let zoom = 1, TASKBAR = 48, TITLEBAR = 38;
+  const applyZoom = () => {
+    zoom = Math.min(3, Math.max(1, devicePixelRatio / baseDpr));
+    TASKBAR = 48 + 16 * (zoom - 1);
+    TITLEBAR = 38 + 10 * (zoom - 1);
+    document.documentElement.style.setProperty('--z', zoom);
+    $('#ui').style.zoom = 1 / zoom;
+  };
+  applyZoom();
+
   const q = new URLSearchParams(location.search);
   const embedded = q.get('embed') === '1';
-  const vw0 = innerWidth, vh0 = innerHeight, narrow0 = vw0 < 700;
+  const vw0 = innerWidth * zoom, vh0 = innerHeight * zoom, narrow0 = vw0 < 700;
   const pw0 = Math.min(DEFS.projects.w, vw0 - 16), ph0 = Math.min(DEFS.projects.h, vh0 - TASKBAR - 16);
   const s = {
     vw: vw0, vh: vh0, top: 2, filter: 'all', sel: null, start: false,
@@ -55,7 +72,7 @@
   const geo = (id) => {
     const d = DEFS[id], narrow = s.vw < 700;
     const w = Math.min(d.w, s.vw - 16), h = Math.min(d.h, s.vh - TASKBAR - 16);
-    return { w, h, x: narrow ? 8 : Math.max(-(w - 90), Math.min(s.wins[id].x, s.vw - 90)), y: Math.min(s.wins[id].y, Math.max(0, s.vh - TASKBAR - 38)) };
+    return { w, h, x: narrow ? 8 : Math.max(-(w - 90), Math.min(s.wins[id].x, s.vw - 90)), y: Math.min(s.wins[id].y, Math.max(0, s.vh - TASKBAR - TITLEBAR)) };
   };
   const open = (id) => {
     const w = s.wins[id];
@@ -79,7 +96,7 @@
       if (e.target.closest('button')) return;
       e.preventDefault();
       const g = geo(id);
-      drag = { id, dx: e.clientX - g.x, dy: e.clientY - g.y };
+      drag = { id, dx: e.clientX * zoom - g.x, dy: e.clientY * zoom - g.y };
     });
     $('[data-act="min"]', el).addEventListener('click', () => { s.wins[id].min = true; render(); });
     $('[data-act="close"]', el).addEventListener('click', () => { Object.assign(s.wins[id], { open: false, min: false }); render(); });
@@ -87,12 +104,12 @@
   addEventListener('pointermove', (e) => {
     if (!drag) return;
     const { id, dx, dy } = drag, w = geo(id).w;
-    s.wins[id].x = Math.max(-(w - 90), Math.min(s.vw - 90, e.clientX - dx));
-    s.wins[id].y = Math.max(0, Math.min(s.vh - TASKBAR - 38, e.clientY - dy));
+    s.wins[id].x = Math.max(-(w - 90), Math.min(s.vw - 90, e.clientX * zoom - dx));
+    s.wins[id].y = Math.max(0, Math.min(s.vh - TASKBAR - TITLEBAR, e.clientY * zoom - dy));
     placeWindows();
   });
   addEventListener('pointerup', () => { drag = null; });
-  addEventListener('resize', () => { s.vw = innerWidth; s.vh = innerHeight; render(); });
+  addEventListener('resize', () => { applyZoom(); s.vw = innerWidth * zoom; s.vh = innerHeight * zoom; render(); });
 
   $$('[data-open]').forEach((b) => b.addEventListener('click', () => open(b.dataset.open)));
 
