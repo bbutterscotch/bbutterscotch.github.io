@@ -66,8 +66,8 @@ button { font-family: inherit; }
           mask: repeating-linear-gradient(180deg, #000 0 6px, transparent 6px 9px);
 }
 .plane { position: absolute; left: -50%; right: -50%; top: 0; height: 100%; transform: perspective(200px) rotateX(55deg); transform-origin: top; }
-.plane .mark { position: absolute; left: 50%; top: 9cqw; transform: translateX(calc(-50% - 5cqw)); opacity: var(--markOp); }
-.plane .mark .rootmark { font-size: 13cqw; color: var(--markInk); }
+.plane .mark { position: absolute; left: 50%; top: 9cqw; transform: translateX(-50%); opacity: var(--markOp); }
+.plane .mark .rootmark { font-size: 11.5cqw; color: var(--markInk); }
 .plane.lines { background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 34px 22px; }
 
 /* Home screen */
