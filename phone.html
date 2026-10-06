@@ -2,59 +2,131 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Emily Root · Phone</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  /* Placeholder until the phone home screen (Emily Phone design) is built. */
-  :root { --bg: #0a0f24; --card: #121a38; --line: #1f2a52; --ink: #e8eefb; --muted: #99a5c6; --a1: oklch(0.84 0.14 190); --a1Ink: #041419; --a2: oklch(0.80 0.17 135); }
-  :root[data-theme="light"] { --bg: oklch(0.93 0.035 230); --card: #fff; --line: #e2e7f3; --ink: #121a38; --muted: #5a6488; --a1: oklch(0.52 0.11 205); --a1Ink: #fff; --a2: oklch(0.50 0.14 145); }
-  html, body { margin: 0; min-height: 100%; }
-  body {
-    background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased;
-    display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 56px 24px 40px; box-sizing: border-box; min-height: 100vh;
-  }
-  a { color: inherit; text-decoration: none; }
-  .rootmark { display: inline-flex; align-items: stretch; font: 700 34px/1 'Oxanium', sans-serif; color: var(--a1); align-self: flex-start; }
-  .rootmark svg { width: .6em; height: auto; flex: none; display: block; overflow: visible; }
-  .rootmark span { display: block; line-height: 1; padding: .12em .05em 0 .06em; border-top: .09em solid currentColor; letter-spacing: -.01em; }
-  h1 { margin: 0; font-size: 22px; }
-  .sub { margin: 4px 0 0; color: var(--muted); font-size: 14.5px; }
-  .status { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; margin-top: 10px; }
-  .status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--a2); }
-  .list { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-  .list a, .list button { all: unset; cursor: pointer; display: flex; justify-content: space-between; padding: 14px 16px; font-size: 15px; font-weight: 500; }
-  .list > * + * { border-top: 1px solid var(--line) !important; }
-  .list span { color: var(--muted); }
-  .note { color: var(--muted); font-size: 12.5px; text-align: center; margin: 0; }
-  .back { border: 0; cursor: pointer; align-self: center; background: var(--a1); color: var(--a1Ink); font: 600 14px 'IBM Plex Sans', sans-serif; padding: 10px 18px; border-radius: 99px; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Chakra+Petch:wght@600;700&family=Oxanium:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/phone.css">
 </head>
 <body>
-  <div>
-    <span class="rootmark"><svg viewBox="0 0 60 121" preserveAspectRatio="none" aria-hidden="true"><path d="M2 56 L17 46 L32 86 L57 4.5 L61 4.5" fill="none" stroke="currentColor" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/></svg><span>Emily</span></span>
-    <h1 style="margin-top:14px">Emily Root</h1>
-    <p class="sub">Software engineer at BrightVine Solutions</p>
-    <span class="status">Open to offers</span>
+<template id="rootmark"><span class="rootmark"><svg viewBox="0 0 60 121" preserveAspectRatio="none" aria-hidden="true"><path d="M2 56 L17 46 L32 86 L57 4.5 L61 4.5" fill="none" stroke="currentColor" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/></svg><span>Emily</span></span></template>
+
+<div class="frame">
+<div class="screen">
+  <!-- Wallpaper: stars, striped sun, grid floor with the sun's reflection and the √Emily mark -->
+  <div class="stars" aria-hidden="true"><i id="stars"></i></div>
+  <div class="sky" aria-hidden="true"><div class="sun"></div></div>
+  <div class="floor" aria-hidden="true">
+    <div class="reflection"><div></div></div>
+    <div class="plane"><div class="mark" data-rootmark></div></div>
+    <div class="plane lines"></div>
   </div>
-  <nav class="list">
-    <a href="https://bbutterscotch.itch.io" target="_blank" rel="noopener">Games on itch.io <span>↗</span></a>
-    <a href="https://github.com/bbutterscotch" target="_blank" rel="noopener">GitHub <span>↗</span></a>
-    <a href="https://www.linkedin.com/in/eeroot/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
-    <a href="img/resume_emilyroot.pdf" target="_blank">Resume (PDF) <span>↓</span></a>
-  </nav>
-  <p class="note">The phone version of the site is on its way.</p>
-  <button class="back" id="back" type="button">⏏ Back to desk</button>
-<script>
-  const q = new URLSearchParams(location.search);
-  const setTheme = (t) => { if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; };
-  setTheme(q.get('theme'));
-  addEventListener('message', (e) => { if (e.data && e.data.type === 'er-theme') setTheme(e.data.theme); });
-  const exit = () => { if (parent !== window) parent.postMessage({ type: 'er-exit' }, '*'); else location.href = './'; };
-  document.getElementById('back').addEventListener('click', exit);
-  addEventListener('keydown', (e) => { if (e.key === 'Escape') exit(); });
-</script>
+
+  <main class="home">
+    <button class="profile glass" data-app="about">
+      <span data-rootmark></span>
+      <span style="display:flex;flex-direction:column;gap:2px;width:100%"><span class="profile-name">Emily Root</span><span class="profile-role">Software engineer at BrightVine Solutions</span></span>
+      <span class="status">Open to offers</span>
+    </button>
+
+    <nav class="apps">
+      <button class="app" data-app="code"><span class="app-icon" style="background:oklch(0.52 0.15 255)"><svg viewBox="0 0 24 24" width="52%" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7 3 12l5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg></span><span class="app-label">Code</span></button>
+      <button class="app" data-app="games"><span class="app-icon" style="background:oklch(0.62 0.12 200)"><svg viewBox="0 0 24 24" width="56%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5.5"/><path d="M7.5 10.5v4M5.5 12.5h4"/><circle cx="15.5" cy="11.2" r="1" fill="currentColor"/><circle cx="18" cy="13.8" r="1" fill="currentColor"/></svg></span><span class="app-label">Games</span></button>
+      <button class="app" data-app="jams"><span class="app-icon" style="background:oklch(0.84 0.15 92);color:#2a220a"><svg viewBox="0 0 24 24" width="52%" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2.5M9.5 2.5h5M19 6l1.5-1.5"/></svg></span><span class="app-label">Jams</span></button>
+      <a class="app" href="https://bbutterscotch.itch.io" target="_blank" rel="noopener"><span class="app-icon" style="background:#fa5c5c;font:700 15px 'IBM Plex Sans',sans-serif">itch</span><span class="app-label">itch.io</span></a>
+      <a class="app" href="https://github.com/bbutterscotch" target="_blank" rel="noopener"><span class="app-icon" style="background:#24292f"><svg viewBox="0 0 24 24" width="50%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="7" r="2.2"/><path d="M6 7.2v9.6M18 9.2c0 5-7 3.5-11.2 7.8"/></svg></span><span class="app-label">GitHub</span></a>
+      <a class="app" href="https://www.linkedin.com/in/eeroot/" target="_blank" rel="noopener"><span class="app-icon" style="background:#0a66c2;font:700 22px 'IBM Plex Sans',sans-serif">in</span><span class="app-label">LinkedIn</span></a>
+      <button class="app" data-leave><span class="app-icon" style="background:#16161a;color:oklch(0.84 0.14 190);box-shadow:0 6px 14px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.08)"><svg viewBox="0 0 24 24" width="56%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.8"/><path d="M12 16v3M7.5 20.5h9"/></svg></span><span class="app-label">Desk</span></button>
+    </nav>
+
+    <nav class="dock glass">
+      <button class="app" data-app="about"><span class="app-icon" style="background:oklch(0.70 0.13 190);color:#041419"><svg viewBox="0 0 24 24" width="52%" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c1.4-4 4.3-6 7.5-6s6.1 2 7.5 6"/></svg></span><span class="app-label">About</span></button>
+      <button class="app" data-app="mail"><span class="app-icon" style="background:oklch(0.58 0.17 250)"><svg viewBox="0 0 24 24" width="54%" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.8 7 12 13l8.2-6"/></svg></span><span class="app-label">Mail</span></button>
+      <button class="app" data-app="resume"><span class="app-icon" style="background:#f4f6fb;color:oklch(0.52 0.11 205)"><svg viewBox="0 0 24 24" width="50%" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M6 2.8h8l4.5 4.5v13.9H6z"/><path d="M14 2.8v4.5h4.5M9 12.5h6.5M9 16.5h6.5"/></svg></span><span class="app-label">Resume</span></button>
+      <button class="app" data-app="settings"><span class="app-icon" style="background:#5a6488"><svg viewBox="0 0 24 24" width="58%" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8" stroke-width="3.4" stroke-dasharray="3.15 3.13"/><circle cx="12" cy="12" r="5.6" stroke-width="2"/><circle cx="12" cy="12" r="1.8" stroke-width="2"/></svg></span><span class="app-label">Settings</span></button>
+    </nav>
+  </main>
+
+  <section class="sheet" id="app" hidden>
+    <header class="sheet-head"><h1 id="appTitle"></h1><span id="appSub"></span></header>
+    <div class="sheet-body">
+      <div data-pane="list" id="list" style="display:contents"></div>
+
+      <div data-pane="about" style="display:contents">
+        <div class="about-head">
+          <div class="portrait ph">portrait</div>
+          <span class="about-name">Emily Root</span>
+          <span style="font-size:14px;color:var(--muted)">Software engineer at BrightVine Solutions</span>
+          <span class="status">Open to offers</span>
+        </div>
+        <div class="card about-text">
+          <p>I'm a software engineer who specializes in creating experiences through games. Today I build software at BrightVine Solutions.</p>
+          <p>I studied at North Carolina State University and graduated in May 2025. Outside work I make games, mostly for GMTK Game Jam, usually as the programmer on a small team.</p>
+        </div>
+        <nav class="card links">
+          <a href="https://www.linkedin.com/in/eeroot/" target="_blank" rel="noopener"><span>LinkedIn</span><span>↗</span></a>
+          <a href="https://bbutterscotch.itch.io" target="_blank" rel="noopener"><span>itch.io</span><span>↗</span></a>
+          <a href="https://github.com/bbutterscotch" target="_blank" rel="noopener"><span>GitHub</span><span>↗</span></a>
+        </nav>
+        <button class="btn" data-app="mail">Send a message</button>
+      </div>
+
+      <div data-pane="resume" style="display:contents">
+        <div class="paper">
+          <div class="paper-head"><b>Emily Root</b><span>Software Engineer</span></div>
+          <section><h4>EXPERIENCE</h4><div class="pr"><span>BrightVine Solutions</span><span>2025–</span></div><div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div></section>
+          <section><h4>PROJECTS</h4><div class="ln" style="width:88%"></div><div class="ln" style="width:70%"></div></section>
+          <section><h4>EDUCATION</h4><div class="pr"><span>North Carolina State University</span><span>2025</span></div></section>
+          <section><h4>SKILLS</h4><div class="ln" style="width:66%"></div></section>
+          <footer>preview: download for the full resume</footer>
+        </div>
+        <a class="btn" href="img/resume_emilyroot.pdf" target="_blank">Download PDF ↓</a>
+      </div>
+
+      <div data-pane="mail" style="display:contents">
+        <form class="mail" action="https://api.web3forms.com/submit" method="POST" target="_blank">
+          <input type="hidden" name="access_key" value="2a0c2469-78aa-449d-a10a-6bf9df663fa6">
+          <input type="checkbox" name="botcheck" style="display:none">
+          <div class="card">
+            <div class="mail-row"><span>To</span><span class="chip">Emily Root</span></div>
+            <label class="mail-row"><span>From</span><input name="name" required placeholder="Your name"></label>
+            <label class="mail-row"><span>Email</span><input name="email" type="email" required placeholder="you@example.com"></label>
+            <label class="mail-row"><span>Subject</span><input name="subject" placeholder="Hello!"></label>
+          </div>
+          <textarea name="message" required placeholder="Write your message…" rows="7"></textarea>
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+
+      <div data-pane="settings" style="display:contents">
+        <span class="section-label">APPEARANCE</span>
+        <div class="card theme-card">
+          <span>Theme</span>
+          <div class="seg"><button data-theme="light">☀ Light</button><button data-theme="dark">☾ Dark</button></div>
+        </div>
+        <button class="put-down" data-leave>⏏ Put the phone down</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="detail" hidden>
+    <div class="back"><button id="detailBack"><span>‹</span><b id="backLabel" style="font-weight:400"></b></button></div>
+    <div class="sheet-body" id="detailBody"></div>
+  </section>
+
+  <div class="island" aria-hidden="true"><span></span></div>
+  <div class="statusbar">
+    <span class="clock" id="clock"></span>
+    <span class="indicators" aria-hidden="true">
+      <span class="signal"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8.5px"></i><i style="height:11px"></i></span>
+      <span class="battery"><b></b><i></i></span>
+    </span>
+  </div>
+  <button class="homebar" id="homebar" aria-label="Home bar"><span></span></button>
+</div>
+</div>
+<script src="js/projects.js"></script>
+<script src="js/phone.js"></script>
 </body>
 </html>
