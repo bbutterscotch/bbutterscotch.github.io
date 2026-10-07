@@ -3,7 +3,7 @@
   const PROJECTS = window.PROJECTS;
   const FILTERS = [['all', 'All projects'], ['software', 'Software'], ['games', 'Games'], ['jams', 'Game jams']];
   const match = (p, f) => f === 'all' || (f === 'software' ? p.kind === 'Software' : f === 'games' ? p.kind === 'Game' && !p.jam : !!p.jam);
-  const DEFS = { projects: { title: 'Projects', w: 800, h: 540 }, about: { title: 'About.txt', w: 470, h: 430 }, resume: { title: 'Resume.pdf', w: 500, h: 620 }, contact: { title: 'New message', w: 500, h: 500 } };
+  const DEFS = { projects: { title: 'Projects', w: 800, h: 540 }, about: { title: 'About.txt', w: 470, h: 430 }, resume: { title: 'Resume.pdf', w: 720, h: 760 }, contact: { title: 'New message', w: 500, h: 500 } };
   const ORDER = ['projects', 'about', 'resume', 'contact'];
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];

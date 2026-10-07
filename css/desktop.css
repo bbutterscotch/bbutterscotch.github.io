@@ -176,18 +176,10 @@ input, textarea, button { font: inherit; }
 .r-bar .btn-primary { align-self: center; padding: 6px 12px; border-radius: 6px; font-size: calc(13px * var(--z)); }
 .r-view { flex: 1; min-height: 0; overflow: auto; background: color-mix(in oklch, var(--side) var(--glass), transparent); padding: 20px; display: flex; justify-content: center; }
 .paper {
-  width: 100%; max-width: 400px; aspect-ratio: 8.5 / 11; background: #fff; color: #121a38; border-radius: 3px; box-shadow: 0 4px 18px rgba(0,0,0,.18);
-  padding: 30px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; flex: none; align-self: flex-start;
+  width: 100%; flex: none; align-self: flex-start; display: block; background: #fff; border-radius: 3px; overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,.18);
 }
-.paper-head { display: flex; flex-direction: column; gap: 3px; border-bottom: 1.5px solid #121a38; padding-bottom: 10px; }
-.paper-head b { font-family: 'Chakra Petch', sans-serif; font-size: 22px; font-weight: 700; }
-.paper-head span { font-size: 11.5px; color: #5a6488; }
-.paper section { display: flex; flex-direction: column; gap: 6px; }
-.paper h4 { margin: 0; font: 600 10px 'IBM Plex Mono', monospace; letter-spacing: .08em; color: oklch(0.52 0.11 205); }
-.paper .row { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 600; }
-.paper .row span:last-child { font-weight: 400; color: #5a6488; }
-.paper .ln { height: 5px; border-radius: 3px; background: #e4e8f2; }
-.paper footer { margin-top: auto; font: 10px 'IBM Plex Mono', monospace; color: #8a93b0; text-align: center; }
+.paper img { display: block; width: 100%; height: auto; }
 
 /* Contact window */
 .mail { flex: 1; min-height: 0; display: flex; flex-direction: column; user-select: text; background: var(--card); margin: 0; }

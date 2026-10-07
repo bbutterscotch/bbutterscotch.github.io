@@ -134,19 +134,8 @@ a.btn:hover { color: var(--a1Ink); }
 .links a + a { border-top: 1px solid var(--line); }
 .links a span:last-child { color: var(--muted); }
 
-.paper {
-  width: 100%; aspect-ratio: 8.5 / 11; background: #fff; color: #121a38; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.25);
-  padding: 26px 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; flex: none;
-}
-.paper-head { display: flex; flex-direction: column; gap: 3px; border-bottom: 1.5px solid #121a38; padding-bottom: 9px; }
-.paper-head b { font-family: 'Chakra Petch', sans-serif; font-size: 21px; font-weight: 700; }
-.paper-head span { font-size: 11.5px; color: #5a6488; }
-.paper section { display: flex; flex-direction: column; gap: 6px; }
-.paper h4 { margin: 0; font: 600 10px 'IBM Plex Mono', monospace; letter-spacing: .08em; color: oklch(0.52 0.11 205); }
-.paper .pr { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 600; }
-.paper .pr span:last-child { font-weight: 400; color: #5a6488; }
-.paper .ln { height: 5px; border-radius: 3px; background: #e4e8f2; }
-.paper footer { margin-top: auto; font: 10px 'IBM Plex Mono', monospace; color: #8a93b0; text-align: center; }
+.paper { width: 100%; flex: none; display: block; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.paper img { display: block; width: 100%; height: auto; }
 
 .mail { display: flex; flex-direction: column; gap: 10px; margin: 0; }
 .mail-row { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 16px; }
