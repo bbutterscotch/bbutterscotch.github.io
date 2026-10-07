@@ -196,3 +196,25 @@ a.btn:hover { color: var(--a1Ink); }
 .battery i { width: 1.5px; height: 4px; border-radius: 1px; background: currentColor; opacity: .6; }
 .homebar { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; z-index: 60; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .homebar span { width: 134px; height: 5px; border-radius: 3px; background: var(--ink); opacity: .55; }
+
+/* Real phones (html.native, set by phone.js): the device has its own status bar, notch and home indicator,
+   so the drawn ones are hidden, content keeps clear of the safe areas, and apps get a Home button. */
+.home-btn { display: none; }
+.native .island, .native .statusbar, .native .homebar, .native [data-leave] { display: none; }
+.native .frame, .native .screen { max-width: none; max-height: none; }
+.native .home { padding: calc(env(safe-area-inset-top) + clamp(12px, 3cqh, 28px)) 0 calc(env(safe-area-inset-bottom) + 12px); }
+.native .sheet { padding-top: env(safe-area-inset-top); }
+.native .home-btn { display: block; }
+.native .sheet-body { padding-bottom: calc(env(safe-area-inset-bottom) + 32px); }
+.native .profile, .native .app { -webkit-tap-highlight-color: transparent; }
+.native #detail .sheet-body { padding-bottom: calc(env(safe-area-inset-bottom) + 32px); }
+/* Sideways phone: keep the home screen a comfortable width and size the sun to the screen height */
+@media (orientation: landscape) {
+  .native .home { left: max(0px, calc(50% - 340px)); right: max(0px, calc(50% - 340px)); }
+  .native .screen { --sunW: min(66cqw, 80cqh); }
+  .native .sun { width: var(--sunW); bottom: calc(var(--sunW) * -0.318); }
+  .native .reflection { width: var(--sunW); height: calc(var(--sunW) * 0.68); }
+  .native .reflection div { top: calc(var(--sunW) * -0.318); }
+  .native .plane .mark { top: min(9cqw, 11cqh); }
+  .native .plane .mark .rootmark { font-size: min(11.5cqw, 14cqh); }
+}

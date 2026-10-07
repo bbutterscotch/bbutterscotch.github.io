@@ -26,11 +26,18 @@
   $('#stars').style.boxShadow = Array.from({ length: 70 }, () =>
     `${(rnd() * 100).toFixed(1)}cqw ${(rnd() * 62).toFixed(1)}cqh rgba(255,255,255,${(0.35 + rnd() * 0.6).toFixed(2)})`).join(',');
 
+  // On a real phone (not inside the desk) the phone site is the whole site: drop the drawn phone chrome and
+  // the ways back to the desk, and let the device's back button close projects and apps.
+  const native = window.isPhone && parent === window;
+  if (native) document.documentElement.classList.add('native');
+  const themeColor = $('meta[name="theme-color"]');
+
   // Theme: ?theme=, then the desk's er-theme message, else the system preference
   const setTheme = (t) => {
     if (t !== 'light' && t !== 'dark') return;
     document.documentElement.dataset.theme = t;
     $$('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.theme === t)));
+    themeColor.content = t === 'light' ? '#d1edfb' : '#0a0f24'; // browser bar matches the wallpaper
   };
   const qTheme = new URLSearchParams(location.search).get('theme');
   setTheme(qTheme === 'light' || qTheme === 'dark' ? qTheme : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
@@ -97,12 +104,27 @@
     setTimeout(() => { detailEl.hidden = true; detailEl.classList.remove('closing'); s.detail = null; s.detailClosing = false; }, 240);
   };
 
-  $$('[data-app]').forEach((b) => b.addEventListener('click', () => openApp(b.dataset.app)));
-  listEl.addEventListener('click', (e) => { const b = e.target.closest('[data-project]'); if (b) openDetail(b.dataset.project); });
-  $('#detailBack').addEventListener('click', closeDetail);
-  $('#homebar').addEventListener('click', goHome);
+  // On a real phone each open app and project is a history entry, so the back button/gesture closes it.
+  // Switching apps replaces the entry; the on-screen Home and back buttons go back through history too.
+  const show = {
+    app: (id) => { if (native) history[s.app ? 'replaceState' : 'pushState']({ er: 'app' }, ''); openApp(id); },
+    detail: (id) => { if (native) history.pushState({ er: 'detail' }, ''); openDetail(id); },
+  };
+  const closeDetailUI = () => { if (native && s.detail) history.back(); else closeDetail(); };
+  const goHomeUI = () => { if (native && s.app) history.go(s.detail ? -2 : -1); else goHome(); };
+  addEventListener('popstate', (e) => {
+    if (!native) return;
+    const at = e.state && e.state.er; // the entry we landed on: nothing (home), an app, or a project
+    if (!at) goHome(); else if (at === 'app' && s.detail) closeDetail();
+  });
+
+  $$('[data-app]').forEach((b) => b.addEventListener('click', () => show.app(b.dataset.app)));
+  listEl.addEventListener('click', (e) => { const b = e.target.closest('[data-project]'); if (b) show.detail(b.dataset.project); });
+  $('#detailBack').addEventListener('click', closeDetailUI);
+  $('#homebar').addEventListener('click', goHomeUI);
+  $('#appHome').addEventListener('click', goHomeUI);
   addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    if (s.detail) closeDetail(); else if (s.app) goHome(); else leave();
+    if (s.detail) closeDetailUI(); else if (s.app) goHomeUI(); else if (!native) leave();
   });
 })();
